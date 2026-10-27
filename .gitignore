@@ -34,3 +34,8 @@ Thumbs.db
 *.njsproj
 *.sln
 *.sw?
+
+# Additional env ignores
+server/.env
+client/.env
+
