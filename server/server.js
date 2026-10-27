@@ -42,9 +42,11 @@ app.use("/api/bookings", bookingRoutes);
 app.use("/api/auth/admin", adminRoutes);
 app.use("/api/review", reviewRoutes);
 
-// Root health check endpoint
-app.get("/", (req, res) => {
-  res.json({ message: "iMovies API Server is running smoothly", status: "online" });
+// Serve built React client; any non-/api route falls back to index.html
+const clientDist = path.join(__dirname, "../client/dist");
+app.use(express.static(clientDist));
+app.get(/^\/(?!api).*/, (req, res) => {
+  res.sendFile(path.join(clientDist, "index.html"));
 });
 
 // Global error handler middleware
